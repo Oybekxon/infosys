@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import os
+
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
 from redis.asyncio import Redis
@@ -14,7 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-REDIS_URL  = os.getenv("REDIS_URL", "redis://localhost:6379/1")
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/1")
 
 
 async def main():
