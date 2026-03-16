@@ -1,7 +1,9 @@
 import { useState, useEffect, createContext, useContext, useCallback } from "react";
 
 // ─── API ──────────────────────────────────────────────
-const API = import.meta.env.VITE_API_URL || "/api";
+const API = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "/api";
 
 async function apiFetch(path, options = {}) {
   const token = localStorage.getItem("token");
