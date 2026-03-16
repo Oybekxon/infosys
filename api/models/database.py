@@ -14,7 +14,11 @@ DATABASE_URL = os.getenv(
     "postgresql+asyncpg://admin:secret123@localhost:5432/infosys"
 ).replace("postgresql://", "postgresql+asyncpg://")
 
-engine = create_async_engine(DATABASE_URL, echo=False)
+engine = create_async_engine(
+       DATABASE_URL,
+       echo=False,
+       connect_args={"ssl": True},
+   )
 AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
 
