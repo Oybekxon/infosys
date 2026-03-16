@@ -8,9 +8,8 @@ from sqlalchemy.sql import func
 from sqlalchemy.ext.asyncio import async_sessionmaker
 import enum
 import os
-import ssl
 
-_raw = os.getenv("DATABASE_URL", "postgresql://admin:secret123@localhost:5432/infosys")
+_raw = os.getenv("DATABASE_URL", "")
 _raw = _raw.split("?")[0]
 DATABASE_URL = (
     _raw
@@ -18,17 +17,11 @@ DATABASE_URL = (
     .replace("postgresql://", "postgresql+asyncpg://")
 )
 
-ssl_ctx = ssl.create_default_context()
-ssl_ctx.check_hostname = False
-ssl_ctx.verify_mode = ssl.CERT_NONE
-
 engine = create_async_engine(
     DATABASE_URL,
     echo=False,
-    connect_args={"ssl": ssl_ctx},
 )
 AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
-
 
 class Base(DeclarativeBase):
     pass
